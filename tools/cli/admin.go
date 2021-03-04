@@ -117,6 +117,15 @@ func newAdminWorkflowCommands() []cli.Command {
 				AdminDeleteWorkflow(c)
 			},
 		},
+		{
+			Name: "deletehistoric",
+			Aliases: []string{"delh"},
+			Usage: "Delete historic workflow executions up to pagesize",
+			Flags: getFlagsForHistoryDelete(),
+			Action: func(c *cli.Context) {
+				AdminDeleteClosedWorkflows(c)
+			},
+		},
 	}
 }
 

@@ -39,6 +39,20 @@ type sqlHistoryV2Manager struct {
 	sqlStore
 }
 
+func NewHistoryV2Store(
+	db sqlplugin.DB,
+	logger log.Logger,
+	parser serialization.Parser,
+) (p. HistoryStore, error) {
+	return &sqlHistoryV2Manager{
+		sqlStore: sqlStore{
+			db: db,
+			logger: logger,
+			parser: parser,
+		},
+	}, nil
+}
+
 // newHistoryV2Persistence creates an instance of HistoryManager
 func newHistoryV2Persistence(
 	db sqlplugin.DB,

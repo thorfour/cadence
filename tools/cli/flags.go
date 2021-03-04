@@ -523,6 +523,18 @@ func getCommonFlagsForVisibility() []cli.Flag {
 	}
 }
 
+func getFlagsForHistoryDelete() []cli.Flag{
+	flagsForHistoryDelete := []cli.Flag{
+		cli.BoolFlag{
+			Name:  FlagDryRun,
+			Usage: "Not do real action of deletion(just logging in STDOUT)",
+		},
+	}
+	flagsForHistoryDelete = append(getDBFlags(), flagsForHistoryDelete...)
+	flagsForHistoryDelete = append(getFlagsForList(), flagsForHistoryDelete...)
+	return flagsForHistoryDelete
+}
+
 func getFlagsForList() []cli.Flag {
 	flagsForList := []cli.Flag{
 		cli.BoolFlag{
