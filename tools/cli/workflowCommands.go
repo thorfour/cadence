@@ -640,16 +640,22 @@ func queryWorkflowHelper(c *cli.Context, queryType string) {
 func ListWorkflow(c *cli.Context) {
 	more := c.Bool(FlagMore)
 	queryOpen := c.Bool(FlagOpen)
+	var pageToken []byte
+	pt := c.String(FlagPageToken)
+	if pt != "" {
+		pageToken = []byte(pt)
+	}
 
 	printJSON := c.Bool(FlagPrintJSON)
 	printDecodedRaw := c.Bool(FlagPrintFullyDetail)
 
 	if printJSON || printDecodedRaw {
 		if !more {
-			results, _ := getListResultInRaw(c, queryOpen, nil)
-			fmt.Println("[")
+			results, nextPageToken := getListResultInRaw(c, queryOpen, pageToken)
+			fmt.Println("{\"data\": [")
 			printListResults(results, printJSON, false)
-			fmt.Println("]")
+			fmt.Println("],")
+			fmt.Printf("\"next_page_token\": %s}\n", nextPageToken)
 		} else {
 			ErrorAndExit("Not support printJSON in more mode", nil)
 		}

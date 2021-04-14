@@ -116,6 +116,8 @@ const (
 	FlagDeprecatedWithAlias               = FlagDeprecated + ", dep"
 	FlagPageSize                          = "pagesize"
 	FlagPageSizeWithAlias                 = FlagPageSize + ", ps"
+	FlagPageToken                         = "pagetoken"
+	FlagPageTokenWithAlias                = FlagPageToken + ", pt"
 	FlagEarliestTime                      = "earliest_time"
 	FlagEarliestTimeWithAlias             = FlagEarliestTime + ", et"
 	FlagLatestTime                        = "latest_time"
@@ -535,6 +537,11 @@ func getFlagsForList() []cli.Flag {
 			Name:  FlagPageSizeWithAlias,
 			Value: 10,
 			Usage: "Result page size",
+		},
+		cli.StringFlag{
+			Name:  FlagPageTokenWithAlias,
+			Value: "",
+			Usage: "Page token for pagination",
 		},
 	}
 	flagsForList = append(getFlagsForListAll(), flagsForList...)
