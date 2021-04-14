@@ -654,8 +654,12 @@ func ListWorkflow(c *cli.Context) {
 			results, nextPageToken := getListResultInRaw(c, queryOpen, pageToken)
 			fmt.Println("{\"data\": [")
 			printListResults(results, printJSON, false)
-			fmt.Println("],")
-			fmt.Printf("\"next_page_token\": %s}\n", nextPageToken)
+			if nextPageToken != nil {
+				fmt.Println("],")
+				fmt.Printf("\"next_page_token\": %s}\n", nextPageToken)
+			} else {
+				fmt.Println("]}")
+			}
 		} else {
 			ErrorAndExit("Not support printJSON in more mode", nil)
 		}
